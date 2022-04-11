@@ -133,11 +133,13 @@ export interface WriteIdsAndPrefsOptions extends Options {
   redirectUrl?: URL;
 }
 
+export interface CreateSeedOptions extends Options {
+  callback?: Function;
+}
+
 export type SignPrefsOptions = Options;
 
 export type GetNewIdOptions = Options;
-
-export type CreateSeedOptions = Options;
 
 /**
  * Refresh result
@@ -452,7 +454,7 @@ export const getIdsAndPreferences = (): IdsAndPreferences | undefined => {
 };
 
 export const createSeed = async (
-  { proxyHostName }: CreateSeedOptions,
+  { proxyHostName, callback }: CreateSeedOptions,
   transactionIds: TransactionId[]
 ): Promise<Seed | undefined> => {
   if (transactionIds.length == 0) {
@@ -472,5 +474,10 @@ export const createSeed = async (
   };
   const response = await postJson(url, requestContent);
 
+  if (callback) {
+    const json = await response.json();
+    callback(json);
+    return;
+  }
   return await response.json();
 };
