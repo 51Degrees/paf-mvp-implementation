@@ -134,7 +134,7 @@ export interface WriteIdsAndPrefsOptions extends Options {
 }
 
 export interface CreateSeedOptions extends Options {
-  callback?: Function;
+  callback?: (seed: Seed) => void;
 }
 
 export type SignPrefsOptions = Options;
@@ -465,6 +465,9 @@ export const createSeed = async (
   const url = getUrl(jsonProxyEndpoints.createSeed);
   const idsAndPrefs = getIdsAndPreferences();
   if (idsAndPrefs === undefined) {
+    if (callback) {
+      callback(undefined);
+    }
     return undefined;
   }
 
@@ -472,12 +475,20 @@ export const createSeed = async (
     transaction_ids: transactionIds,
     data: idsAndPrefs,
   };
-  const response = await postJson(url, requestContent);
 
-  if (callback) {
-    const json = await response.json();
-    callback(json);
-    return;
+  try {
+    const response = await postJson(url, requestContent);
+
+    if (callback) {
+      const json = await response.json();
+      callback(json);
+      return;
+    }
+    return await response.json();
+  } catch {
+    if (callback) {
+      callback(undefined);
+    }
+    return undefined;
   }
-  return await response.json();
 };
