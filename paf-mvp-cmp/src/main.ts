@@ -25,12 +25,7 @@ const showNotification = (type: NotificationEnum) => {
   }
 };
 
-controller = new Controller(
-  document.currentScript,
-  new Locale(window.navigator.languages),
-  new Config(document.currentScript, log),
-  log
-);
+controller = new Controller(document.currentScript, new Locale(), new Config(document.currentScript, log), log);
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore this is needed because the paf-lib expects a global object called PAFUI. Consider altering paf-lib to

@@ -13,6 +13,16 @@ The script adds the HTML elements to the DOM at the point it is included. It sho
 UI as soon as possible and enable the web site to continue loading and fetching data whilst the user interacts with the 
 dialogue. All the resources needed to provide the UI are embedded in the single small JavaScript resource.
 
+## Languages
+
+JavaScript bundles are created for the specific supported languages. There are two options for selecting the language.
+
+1. Replace `[-lang code]` tag in the example URLs with the most appropriate language code using server side code.
+2. Remove the `[-lang code]` tag so that the file requested is `ok-ui.js`. The most appropriate language will be determined client side.
+
+The use of server side logic to perform the language identification will provide the best performance. The logic for 
+language detection can be model on the `./src/loader.ts` script.
+
 ## Performance (1)
 
 To improve overall performance a preload link element should be added at the beginning of the `<head>` element. This 
@@ -20,22 +30,23 @@ will commence fetching the JavaScript resource as soon as possible in the page r
 particularly noticeable when HTTPS/2 is used.
 
 ```html
-<link rel="preload" as="script" href="https://domain.com/assets/cmp/ok-ui.js">
+<link rel="preload" as="script" href="https://domain.com/assets/cmp/ok-ui[-lang code].js">
 ```
 
-If this link is not added then the functionality will still be provided by page load time will be marginally impaired.
+If this link is not added then the functionality will still be provided but page load time will be marginally impaired.
 
 ## Script
 
 The script element and attributes must be added to the `<body>` element. See the following example.
 
 ```html
-<script src="https://domain.com/assets/cmp/ok-ui.js" 
+<script src="https://domain.com/assets/cmp/ok-ui[-lang code].js" 
     data-display-intro="true"
     data-snackbar-timeout-ms="5000" 
     data-proxy-host-name="cmp.pafdemopublisher.com" 
     data-brand-name="CMP PAF Demo Pub"
     data-site-only-cookie-tcf-core="pub-tcf"
+    data-mode="cors" // Only used if the lang-code is not present in the URL
     data-brand-privacy-url="https://github.com/prebid/paf-mvp-implementation"></script>
 ```
 
@@ -56,6 +67,7 @@ The following attributes must be present in the script tag.
 - data-brand-name: The brand name to use throughout the user interface.
 - data-brand-privacy-url: This URL is needed to inform the user about the privacy policy of the brand.
 - data-display-intro: True to display the introduction card, or false to skip straight to the settings card after a possible redirect.
+- data-mode: If the script needs to determine the language this value is used with the Fetch API to set the mode attribute when checking to determine if the preferred language is supported. If left empty defaults to `cors`.
 - data-proxy-host-name: The host name to use when reading and writing data from the global storage.
 - data-site-only-cookie-tcf-core: The name of the cookie used to store the TCF core string. If not provided then the this site only option is not available.
 - data-snackbar-timeout-ms: The number of milliseconds to wait for the snackbar to disappear.

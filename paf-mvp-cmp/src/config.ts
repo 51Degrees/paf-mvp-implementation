@@ -102,7 +102,9 @@ export class Config implements Options {
   get tcfCore(): TcfCore {
     if (this._tcfCore === null) {
       const value = this.getValue('data-template-tcf-core-string', false, 'The template TCF core string.');
-      this._tcfCore = new TcfCore(value);
+      if (value !== null) {
+        this._tcfCore = new TcfCore(value);
+      }
     }
     return this._tcfCore;
   }
