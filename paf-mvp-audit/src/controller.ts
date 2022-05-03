@@ -29,7 +29,7 @@ export class Controller {
   private readonly button: HTMLElement;
 
   // The controller that is used to display the UI. Needed to close the audit module and open the settings module.
-  private readonly okUiCtrl: cmp.Controller;
+  private readonly okUiCtrl?: cmp.Controller;
 
   private readonly log: Log;
 
@@ -40,7 +40,7 @@ export class Controller {
    * @param okUiCtrl instance to use if the settings need to be displayed
    * @param log
    */
-  constructor(locale: Locale, advert: HTMLElement, okUiCtrl: cmp.Controller, log: Log) {
+  constructor(locale: Locale, advert: HTMLElement, log: Log, okUiCtrl?: cmp.Controller) {
     this.locale = locale;
     this.element = advert;
     this.okUiCtrl = okUiCtrl;
@@ -100,7 +100,11 @@ export class Controller {
       case 'settings':
         this.view.display('button');
         this.bindActions();
-        this.okUiCtrl.display('settings').catch((e) => this.log.Error(e));
+        if (this.okUiCtrl !== null) {
+          this.okUiCtrl.display('settings').catch((e) => this.log.Error(e));
+        } else {
+          this.log.Warn('Controller for the UI is not available');
+        }
         break;
       case 'audit':
         this.view.display('audit');

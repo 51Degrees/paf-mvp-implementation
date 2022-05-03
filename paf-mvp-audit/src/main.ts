@@ -9,7 +9,6 @@ class MonitoredElement extends HTMLDivElement {
   public timer: NodeJS.Timer;
 }
 
-const uiCtrl = <cmp.Controller>window.PAFUI.controller;
 document.querySelectorAll('[auditLog]').forEach((e) => {
   if (e instanceof HTMLDivElement) {
     log.Message('register', e.id);
@@ -19,7 +18,7 @@ document.querySelectorAll('[auditLog]').forEach((e) => {
       if (content !== e.innerHTML) {
         log.Message('adding', e.id);
         clearInterval((<MonitoredElement>e).timer);
-        new Controller(new Locale(window.navigator.languages), e, uiCtrl, log);
+        new Controller(new Locale(window.navigator.languages), e, log, <cmp.Controller>window.PAFUI.controller);
       }
     }, 1000);
   }
