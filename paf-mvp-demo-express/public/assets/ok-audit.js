@@ -371,7 +371,7 @@
        * @param okUiCtrl instance to use if the settings need to be displayed
        * @param log
        */
-      constructor(locale, advert, okUiCtrl, log) {
+      constructor(locale, advert, log, okUiCtrl) {
           this.locale = locale;
           this.element = advert;
           this.okUiCtrl = okUiCtrl;
@@ -424,7 +424,12 @@
               case 'settings':
                   this.view.display('button');
                   this.bindActions();
-                  this.okUiCtrl.display('settings').catch((e) => this.log.Error(e));
+                  if (this.okUiCtrl !== null) {
+                      this.okUiCtrl.display('settings').catch((e) => this.log.Error(e));
+                  }
+                  else {
+                      this.log.Warn('Controller for the UI is not available');
+                  }
                   break;
               case 'audit':
                   this.view.display('audit');
@@ -507,7 +512,6 @@
   Log.label = (color) => `display: inline-block; color: #fff; background: ${color}; padding: 1px 4px; border-radius: 3px;`;
 
   const log = new Log('audit', '#18a9e1');
-  const uiCtrl = window.PAFUI.controller;
   document.querySelectorAll('[auditLog]').forEach((e) => {
       if (e instanceof HTMLDivElement) {
           log.Message('register', e.id);
@@ -517,7 +521,7 @@
               if (content !== e.innerHTML) {
                   log.Message('adding', e.id);
                   clearInterval(e.timer);
-                  new Controller(new Locale(window.navigator.languages), e, uiCtrl, log);
+                  new Controller(new Locale(window.navigator.languages), e, log, window.PAFUI.controller);
               }
           }, 1000);
       }
