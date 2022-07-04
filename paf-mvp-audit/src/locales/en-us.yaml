@@ -27,11 +27,11 @@ advertGoodBody:
   - Everything is fine with the participants who helped display this content.
 advertSuspiciousTitle: Suspicious transactions detected
 advertSuspiciousBody: 
-  - " [SuspiciousParticipants] participants who helped display this content couldn't be verified." 
+  - "[SuspiciousParticipants] participants who helped display this content couldn't be verified." 
 advertSuspiciousButton: Check participants
 advertViolationTitle: Violations detected
 advertViolationBody:
-  - The terms and conditions for the use of data were violated by [ViolatingParticipants] . You can <a href="#" data-card="participants">contact</a> them directly.
+  - The terms and conditions for the use of data were violated by [ViolatingParticipants] participant(s). You can <a href="#" data-card="participants">contact</a> them directly.
 advertViolationButton: Contact violating participants
 advertInProgressTitle: Fetching the data&hellip;
 advertInProgressBody:
@@ -68,8 +68,8 @@ participantsFooter:
   - If you believe an organization didn't honour your preferences, select the contact button to send them this audit for investigation. You may also download the same audit data to send to the appropriate government authority.
 participantsThisContent: This content
 participantsThisContentIntro: The following participants were specifically involved in showing you this content.
-participantsAll: All participants
-participantsAllIntro: The following participants were involved in the selection of this content.
+participantsIdentified: Identified participants
+participantsIdentifiedIntro: The following participants identified themselves as part of the process of selecting this content. 
 participantsSuspicious: Suspicious participants
 participantsSuspiciousIntro: The following participants either could not be verified, or failed validation. Click the contact button to send them this audit for investigation.
 

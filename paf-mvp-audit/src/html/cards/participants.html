@@ -8,7 +8,7 @@
                 <span class="ok-ui-button__label">${ _.participantsThisContent }</span>
             </button>
             <button type="button" class="ok-ui-button" id="participants-all" data-action="participants-all">
-                <span class="ok-ui-button__label">${ _.participantsAll }</span>
+                <span class="ok-ui-button__label">${ _.participantsIdentified }</span>
             </button>
             <button type="button" class="ok-ui-button" id="participants-suspicious" data-action="participants-suspicious">
                 <span class="ok-ui-button__label">${ _.participantsSuspicious }</span>
@@ -16,7 +16,7 @@
         </nav>
     </div>
 </div>
-<div class="ok-ui-mb-3">${ _.participantsThisContentIntro }</div>
+<div class="ok-ui-mb-3" id="participants-intro"></div>
 <div id="participants-tree">
 </div>
 <div class="ok-ui-mt-3">${ _.participantsFooterHTML }</div>
