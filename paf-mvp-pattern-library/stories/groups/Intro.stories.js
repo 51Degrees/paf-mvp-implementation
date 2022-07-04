@@ -8,14 +8,16 @@ export default {
   },
 };
 
+const ariaTitleId = 'ok-ui-card-title-intro';
+
 export const Intro = () => `
-  ${Card({ children: `
+  ${Card({ ariaTitleId, children: `
     ${CardHeader({ children: `
       ${CardActions({ children: `
         ${CardHeaderLogo({ center: true })}
       ` })}
 
-      <h1 class="ok-ui-heading-1">Manage your data and cookies</h1>
+      <h1 class="ok-ui-heading-1" id="${ariaTitleId}">Manage your data and cookies</h1>
     `})}
 
     ${CardBody({ children: `

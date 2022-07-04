@@ -12,9 +12,11 @@ export default {
   },
 };
 
+const ariaTitleId = 'ok-ui-card-title-settings';
+
 export const Settings = () => `
   <form>
-    ${Card({ children: `
+    ${Card({ ariaTitleId, children: `
       ${CardHeader({ children: `
         ${CardActions({ children: `
           ${CardHeaderLogo()}
@@ -22,7 +24,7 @@ export const Settings = () => `
           ${Button({ style: 'text', label: 'Cancel', icon: CrossIcon(), iconPosition: 'end' })}
         ` })}
 
-        <h1 class="ok-ui-heading-1">Choose your marketing preferences</h1>
+        <h1 class="ok-ui-heading-1" id="${ariaTitleId}">Choose your marketing preferences</h1>
 
         <p>OneKey signals your preferences that can enhance your experience across partner websites, without bothering you with future prompts or directly identifying you.</p>
   

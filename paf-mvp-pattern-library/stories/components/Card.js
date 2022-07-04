@@ -23,7 +23,7 @@ export const CardActions = (props = {}) => `<div class="ok-ui-card__actions">
 </div>`;
 
 export default (props = {}) => `
-  <section class="ok-ui-card">${props.children || `
+  <section tabindex="-1" role="dialog"${props.ariaTitleId ? ` aria-labelledby="${props.ariaTitleId}"` : ''} class="ok-ui-card">${props.children || `
     ${CardHeader()}
     ${CardBody()}
     ${CardFooter({ children: `Card footer
