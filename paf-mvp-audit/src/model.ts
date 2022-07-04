@@ -109,13 +109,7 @@ export abstract class VerifiedValue<T> implements IVerifiedValue {
    * @returns the verified status of the field
    */
   public get verifiedStatus(): VerifiedStatus {
-    if (this.valid === undefined) {
-      return VerifiedStatus.Processing;
-    }
-    if (this.identity) {
-      return this.valid ? VerifiedStatus.Good : VerifiedStatus.Violation;
-    }
-    return VerifiedStatus.Suspicious;
+    return this.getVerifiedStatus();
   }
 
   /**
@@ -156,6 +150,16 @@ export abstract class VerifiedValue<T> implements IVerifiedValue {
    * Method called to start the verification process once the identity has been obtained.
    */
   protected abstract verifySignature(): Promise<boolean>;
+
+  protected getVerifiedStatus(): VerifiedStatus {
+    if (this.valid === undefined) {
+      return VerifiedStatus.Processing;
+    }
+    if (this.identity) {
+      return this.valid ? VerifiedStatus.Good : VerifiedStatus.Violation;
+    }
+    return VerifiedStatus.Suspicious;
+  }
 }
 
 export class VerifiedSeed extends VerifiedValue<Seed> {
@@ -303,7 +307,7 @@ export class VerifiedTransmissionResult extends VerifiedValue<TransmissionResult
    * Consider the status returned in the transmission result.
    */
   public get verifiedStatus(): VerifiedStatus {
-    let status = super.verifiedStatus;
+    let status = this.getVerifiedStatus();
     if (this.value.status !== 'success') {
       status = VerifiedStatus.Suspicious;
     }

@@ -12,7 +12,7 @@ describe('testing model', () => {
   let resolver: IdentityResolverMap;
   const log = new Log('audit model test');
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // Create a mock audit log ensuring that the
     mock = new AuditLogMock(log);
     auditLog = mock.BuildAuditLog({ ...AutomobileExample }, { use_browsing_for_personalization: true });
@@ -24,14 +24,15 @@ describe('testing model', () => {
 
     // Check that the resolver from the mock works for the root.
     resolver = mock.GetIdentityResolverMap();
-    resolver.get(AutomobileExample.host).then((i) => expect(i.name).toBe(AutomobileExample.name));
+    const identity = await resolver.get(AutomobileExample.host);
+    expect(identity.name).toBe(AutomobileExample.name);
   });
 
   test('check identity resolution works for all nodes', async () => {
     const model = await new Model(log, resolver, auditLog).verify();
 
     // Check the properties for all verified fields are as expected.
-    model.allVerifiedFields.forEach((i) => expect(i.value.verifiedStatus).toBe(VerifiedStatus.Valid));
+    model.allVerifiedFields.forEach((i) => expect(i.value.verifiedStatus).toBe(VerifiedStatus.Good));
     model.allVerifiedFields.forEach((i) => expect(i.value.valid).toBe(true));
     model.allVerifiedFields.forEach((i) => expect(i.value.identity).toBeDefined());
 
@@ -51,25 +52,25 @@ describe('testing model', () => {
     const model = await new Model(log, resolver, auditLog).verify();
 
     // Check the seed and ids and preferences fields are valid.
-    expect(model.seed.value.verifiedStatus).toBe(VerifiedStatus.Valid);
-    expect(model.idsAndPreferences.value.verifiedStatus).toBe(VerifiedStatus.Valid);
+    expect(model.seed.value.verifiedStatus).toBe(VerifiedStatus.Good);
+    expect(model.idsAndPreferences.value.verifiedStatus).toBe(VerifiedStatus.Good);
 
     // Find the result for the missing domain.
     const failed = model.results.find((i) => i.value.value.source.domain === toRemove.source.domain);
     expect(failed).toBeDefined();
 
     // Get the verified result and check it's identity not found.
-    expect(failed.value.verifiedStatus).toBe(VerifiedStatus.IdentityNotFound);
+    expect(failed.value.verifiedStatus).toBe(VerifiedStatus.Suspicious);
 
     // Check the statuses for all the other results are valid.
     model.results.forEach((result) => {
       if (result.value.value.source.domain !== toRemove.source.domain) {
-        expect(result.value.verifiedStatus).toBe(VerifiedStatus.Valid);
+        expect(result.value.verifiedStatus).toBe(VerifiedStatus.Good);
       }
     });
 
     // Check the count of identity not found status is one.
-    expect(model.count(VerifiedStatus.IdentityNotFound)).toBe(1);
+    expect(model.count(VerifiedStatus.Suspicious)).toBe(1);
 
     // Check that the overall status is caution as the identity can't be found.
     expect(model.overall.value).toBe(OverallStatus.Suspicious);
@@ -86,25 +87,25 @@ describe('testing model', () => {
     const model = await new Model(log, resolver, auditLog).verify();
 
     // Check the seed and ids and preferences fields are valid.
-    expect(model.seed.value.verifiedStatus).toBe(VerifiedStatus.Valid);
-    expect(model.idsAndPreferences.value.verifiedStatus).toBe(VerifiedStatus.Valid);
+    expect(model.seed.value.verifiedStatus).toBe(VerifiedStatus.Good);
+    expect(model.idsAndPreferences.value.verifiedStatus).toBe(VerifiedStatus.Good);
 
     // Find the result for the missing domain.
     const failed = model.results.find((i) => i.value.value.source.domain === toCorrupt.source.domain);
     expect(failed).toBeDefined();
 
     // Get the verified result and check it's identity not found.
-    expect(failed.value.verifiedStatus).toBe(VerifiedStatus.NotValid);
+    expect(failed.value.verifiedStatus).toBe(VerifiedStatus.Violation);
 
     // Check the statuses for all the other results are valid.
     model.results.forEach((result) => {
       if (result.value.value.source.domain !== toCorrupt.source.domain) {
-        expect(result.value.verifiedStatus).toBe(VerifiedStatus.Valid);
+        expect(result.value.verifiedStatus).toBe(VerifiedStatus.Good);
       }
     });
 
     // Check the count of not valid status is one.
-    expect(model.count(VerifiedStatus.NotValid)).toBe(1);
+    expect(model.count(VerifiedStatus.Violation)).toBe(1);
 
     // Check that the overall status is bad as the signature is invalid.
     expect(model.overall.value).toBe(OverallStatus.Violation);
