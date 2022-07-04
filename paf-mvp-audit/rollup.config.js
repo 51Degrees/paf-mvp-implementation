@@ -72,8 +72,12 @@ function addImages(locale) {
   return locale;
 }
 
-// Converts the list of strings to paragraph tags.
-function toHtml(list) { return `<p>${list.join('</p><p>')}</p>`; }
+// Converts the list of strings to paragraph tags with margin bottom applied.
+function toHtml(list) {
+  const p = '<p class="ok-ui-mb-2">';
+  const c = '</p>';
+  return p + list.join(c + p) + c;
+}
 
 // Converts the list of strings to a text block.
 function toText(list) { return list.join('\r\n'); }
@@ -88,6 +92,7 @@ function addHTML(locale) {
   locale.advertViolationBodyHTML = toHtml(locale.advertViolationBody);
   locale.advertInProgressBodyHTML = toHtml(locale.advertInProgressBody);
   locale.downloadBodyHTML = toHtml(locale.downloadBody);
+  locale.pauseAdBodyHTML = toHtml(locale.pauseAdBody);
   delete locale['emailBody'];
   delete locale['participantsIntro'];
   delete locale['participantsFooter'];
@@ -96,6 +101,7 @@ function addHTML(locale) {
   delete locale['advertViolationBody'];
   delete locale['advertInProgressBody'];
   delete locale['downloadBody'];
+  delete locale['pauseAdBody'];
   return locale;
 }
 
@@ -234,7 +240,7 @@ function buildLocaleConfig(localeCode, localeContent, mockAuditLogs) {
       commonjs(),
       globals(),
       json(),
-      nodePolyfills( { crypto: false, fs: false }),
+      nodePolyfills({ crypto: false, fs: false }),
       typescript({
         tsconfig: '../tsconfig.json'
       })

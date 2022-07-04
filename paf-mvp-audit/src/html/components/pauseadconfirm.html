@@ -1,0 +1,58 @@
+<div class="ok-ui-popover__header">
+  <button type="button" class="ok-ui-button ok-ui-button--text ok-ui-button--icon-only" data-action="pause-ad-cancel" aria-label="${ _.close }">
+    <svg width="1em" height="1em" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M8.40994 7.00019L12.7099 2.71019C12.8982 2.52188 13.004 2.26649 13.004 2.00019C13.004 1.73388 12.8982 1.47849 12.7099 1.29019C12.5216 1.10188 12.2662 0.996094 11.9999 0.996094C11.7336 0.996094 11.4782 1.10188 11.2899 1.29019L6.99994 5.59019L2.70994 1.29019C2.52164 1.10188 2.26624 0.996094 1.99994 0.996094C1.73364 0.996094 1.47824 1.10188 1.28994 1.29019C1.10164 1.47849 0.995847 1.73388 0.995847 2.00019C0.995847 2.26649 1.10164 2.52188 1.28994 2.71019L5.58994 7.00019L1.28994 11.2902C1.19621 11.3831 1.12182 11.4937 1.07105 11.6156C1.02028 11.7375 0.994141 11.8682 0.994141 12.0002C0.994141 12.1322 1.02028 12.2629 1.07105 12.3848C1.12182 12.5066 1.19621 12.6172 1.28994 12.7102C1.3829 12.8039 1.4935 12.8783 1.61536 12.9291C1.73722 12.9798 1.86793 13.006 1.99994 13.006C2.13195 13.006 2.26266 12.9798 2.38452 12.9291C2.50638 12.8783 2.61698 12.8039 2.70994 12.7102L6.99994 8.41019L11.2899 12.7102C11.3829 12.8039 11.4935 12.8783 11.6154 12.9291C11.7372 12.9798 11.8679 13.006 11.9999 13.006C12.132 13.006 12.2627 12.9798 12.3845 12.9291C12.5064 12.8783 12.617 12.8039 12.7099 12.7102C12.8037 12.6172 12.8781 12.5066 12.9288 12.3848C12.9796 12.2629 13.0057 12.1322 13.0057 12.0002C13.0057 11.8682 12.9796 11.7375 12.9288 11.6156C12.8781 11.4937 12.8037 11.3831 12.7099 11.2902L8.40994 7.00019Z"
+        fill="currentColor" />
+    </svg>
+  </button>
+</div>
+<h1 class="ok-ui-heading-1 ok-ui-mb-2">${ _.pauseAdTitle }</h1>
+${ _.pauseAdBodyHTML }
+<p class="ok-ui-heading-3 ok-ui-mt-4 ok-ui-mb-3">${ _.pauseAdQuestion }</p>
+<form>
+  <div class="ok-ui-option">
+    <input class="ok-ui-option__input" type="radio" name="marketing" value="1" id="ok-ui-marketing-1" />
+    <label class="ok-ui-option__label" for="ok-ui-marketing-1">
+      <span class="ok-ui-option__input-facade"></span>
+      <div class="ok-ui-option__content">
+        <h3 class="ok-ui-heading-3">${ _.pauseAdAnswer1 }</h3>
+        <p>${ _.pauseAdAnswer1Explained }</p>
+      </div>
+    </label>
+  </div>
+  <div class="ok-ui-option">
+    <input class="ok-ui-option__input" type="radio" name="marketing" value="2" id="ok-ui-marketing-2" />
+    <label class="ok-ui-option__label" for="ok-ui-marketing-2">
+      <span class="ok-ui-option__input-facade"></span>
+      <div class="ok-ui-option__content">
+        <h3 class="ok-ui-heading-3">${ _.pauseAdAnswer2 }</h3>
+        <p>${ _.pauseAdAnswer2Explained }</p>
+      </div>
+    </label>
+  </div>
+  <div class="ok-ui-option">
+    <input class="ok-ui-option__input" type="radio" name="marketing" value="3" id="ok-ui-marketing-3" />
+    <label class="ok-ui-option__label" for="ok-ui-marketing-3">
+      <span class="ok-ui-option__input-facade"></span>
+      <div class="ok-ui-option__content">
+        <h3 class="ok-ui-heading-3">${ _.pauseAdAnswer3 }</h3>
+        <p>${ _.pauseAdAnswer3Explained }</p>
+      </div>
+    </label>
+  </div>
+  <div class="ok-ui-button-group ok-ui-mt-3">
+    <button type="button" class="ok-ui-button ok-ui-button--filled ok-ui-button--primary" data-action="pause-ad-cancel">
+      <span class="ok-ui-button__label">${ _.cancel }</span>
+    </button>
+    <button type="button" class="ok-ui-button ok-ui-button--filled ok-ui-button--primary"
+      data-action="pause-ad-complete">
+      <svg width="1.071em" height="0.929em" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12.8133 12.2567L10.5759 10.0193C9.61066 10.4588 8.56045 10.6803 7.49992 10.668C6.4065 10.6816 5.32439 10.4456 4.33592 9.97801C3.56971 9.60417 2.88168 9.08787 2.30859 8.45668C1.70025 7.80458 1.22212 7.04224 0.899919 6.21068L0.833252 6.00134L0.903252 5.79068C1.38513 4.56154 2.19609 3.48879 3.24725 2.69001L1.49992 0.942676L2.44192 0.00134277L13.7546 11.314L12.8146 12.2567H12.8133ZM4.19059 3.63401C3.33854 4.23129 2.66569 5.04982 2.24459 6.00134C3.14753 8.08461 5.2305 9.40579 7.49992 9.33468C8.19981 9.34041 8.89562 9.22771 9.55792 9.00134L8.35792 7.80134C8.09081 7.93228 7.79739 8.00067 7.49992 8.00134C6.39822 7.99443 5.50683 7.10304 5.49992 6.00134C5.50024 5.70319 5.56864 5.40904 5.69992 5.14134L4.19059 3.63401ZM12.7346 8.40801L11.8066 7.48068C12.197 7.03929 12.517 6.54031 12.7553 6.00134C11.8535 3.91706 9.76975 2.5954 7.49992 2.66801C7.33525 2.66801 7.16992 2.67401 7.00992 2.68534L5.83325 1.50734C6.381 1.39017 6.93978 1.33228 7.49992 1.33468C8.59333 1.32111 9.67544 1.55709 10.6639 2.02468C11.4301 2.3985 12.1182 2.91481 12.6913 3.54601C13.2993 4.19732 13.7774 4.95873 14.0999 5.78934L14.1666 6.00134L14.0966 6.21201C13.7845 7.02406 13.3227 7.77031 12.7353 8.41201L12.7346 8.40801Z"
+          fill="currentColor" />
+      </svg>
+      <span class="ok-ui-button__label">${ _.pauseAd }</span>
+    </button>
+  </div>
+</form>

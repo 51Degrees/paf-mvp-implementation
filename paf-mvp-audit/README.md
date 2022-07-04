@@ -33,15 +33,19 @@ will open the Audit Viewer.
 
 ## Configuration Options
 
-The constructor of the `OKA.Controller` class takes two parameters.
+The constructor of the `OKA.Controller` class takes an optional interface with
+three fields.
 
 -   brandName: provides the name used whenever an entity that is responsible for
     providing the audit log needs to be named. This will typically be the name
     of the publisher who initiated the opportunity to display an advertisement.
+    An empty brand name will be used if not provided.
 -   logoUrls: an array of string URLs that relate to logos that should appear in
     the header of the audit viewer related to the brand of the entity that is
     responsible for providing the audit log. This might include the brand logo
-    of the publisher and advertiser, or their suppliers.
+    of the publisher and advertiser, or their suppliers. No additional logs will
+    be displayed if not provided.
+-   pauseAdVisible: true to show the pause this ad feature, otherwise false.
 
 # Overview
 

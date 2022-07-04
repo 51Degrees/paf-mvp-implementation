@@ -29,11 +29,14 @@ export class View implements IView {
   // The container for the cards within the modal dialog.
   private cardContainer: HTMLDivElement | null = null;
 
+  // The popover container used for dialogues like the pause this advert.
+  public popoverContainer: HTMLDivElement | null = null;
+
   // The container for the button that opens the audit modal dialog.
   private buttonContainer: HTMLDivElement | null = null;
 
   // The list of navigation elements.
-  private navigationList: HTMLUListElement | null = null;
+  private navigationList: HTMLDivElement | null = null;
 
   // The width of the advert before any module changes.
   private readonly advertWidth: number;
@@ -69,6 +72,9 @@ export class View implements IView {
     this.root = this.outerContainer.attachShadow({ mode: 'closed' });
     this.root.appendChild(style);
     this.root.appendChild(this.buttonContainer);
+
+    // Change the advert to include the OneKey class.
+    this.advert.classList.add('ok-ui-website-advert');
   }
 
   /**
@@ -92,6 +98,12 @@ export class View implements IView {
       for (let i = 0; i < images.length; i++) {
         (<HTMLElement>images[i]).style.width = `${this.advertWidth}px`;
       }
+    }
+
+    // Change the toggle state of the navigation to hide the drop down list in tablet width.
+    const navToggleState = <HTMLInputElement>this.root.getElementById('ok-ui-navigation-toggle-state');
+    if (navToggleState) {
+      navToggleState.checked = false;
     }
   }
 
@@ -217,8 +229,11 @@ export class View implements IView {
     // Find the card body from the audit container which is where the cards will be set.
     this.cardContainer = <HTMLDivElement>this.getAuditElementByClassName('ok-ui-card__body');
 
+    // Find the pop over container that is used for dialogues like the pause advert.
+    this.popoverContainer = <HTMLDivElement>this.getAuditElementByClassName('ok-ui-popover');
+
     // Find the navigation element within the audit container.
-    this.navigationList = <HTMLUListElement>this.getAuditElementByClassName('ok-ui-navigation__list');
+    this.navigationList = <HTMLDivElement>this.getAuditElementByClassName('ok-ui-navigation__list');
 
     // Find the popup container that is used to open and close the container.
     this.popupContainer = <HTMLDivElement>this.getAuditElementByClassName('ok-ui-popup');

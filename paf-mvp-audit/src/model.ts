@@ -356,6 +356,11 @@ export class Model implements IModel {
   readonly overall = new Field<OverallStatus, Model>(this, OverallStatus.Processing);
 
   /**
+   * True if the pause this ad prompt has been selected, otherwise false.
+   */
+  readonly pauseAd = new Field<boolean, Model>(this, false);
+
+  /**
    * Constructs the data model from the audit log starting the promises to retrieve identity and then verify the values.
    * @remarks The model must not be used until the promise returned from the verify() method resolves.
    * @param log
@@ -367,6 +372,7 @@ export class Model implements IModel {
     this.allFields.push(this.overall);
     this.allFields.push(this.participantsTab);
     this.allFields.push(this.dataTab);
+    this.allFields.push(this.pauseAd);
 
     // Add the identifier fields to the model.
     this.identifiers = [];
@@ -411,6 +417,11 @@ export class Model implements IModel {
         await this.allVerifiedFields[i].value.verify();
       }
       this.overall.value = this.getOverall();
+      // If the overall status is suspicious or violating then change the tab for the participants to the suspicious
+      // ones as this will be the information the user wants to see when they select it. If everything is good then
+      // there is no suspicious participants to show and the ones for this advert need to be shown.
+      this.participantsTab.value =
+        this.overall.value === OverallStatus.Good ? ParticipantsTabs.This : ParticipantsTabs.Suspicious;
       this.verifyComplete = true;
     }
     return this;

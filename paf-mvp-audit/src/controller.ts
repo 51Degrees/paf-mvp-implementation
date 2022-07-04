@@ -14,8 +14,10 @@ import {
   BindingTabButton,
   BindingPreferences,
   BindingIdentifier,
+  BindingPauseAd,
 } from './bindings';
 import { Marketing } from '@core/model/marketing';
+import { IConfig } from './config';
 
 // TODO: Remove the mock audit log code.
 interface Mock {
@@ -59,12 +61,11 @@ export class Controller implements AuditHandler {
 
   /**
    * Constructs a new instance of the controller.
-   * @param brandName to use to replace the [BrandName] tokens
-   * @param logoUrls to use in the header of the UI
+   * @param config optional config
    */
-  constructor(brandName?: string, logoUrls?: string[]) {
-    this.locale.brandName = brandName;
-    this.locale.logoUrls = logoUrls;
+  constructor(private readonly config?: IConfig) {
+    this.locale.brandName = config?.brandName;
+    this.locale.logoUrls = config?.logoUrls;
   }
 
   /**
@@ -167,6 +168,9 @@ export class Controller implements AuditHandler {
       new BindingPreferenceDate(this.view, 'advert-preference-date', this.locale)
     );
     this.model.overall.addBinding(new BindingOverallStatus(this.view, 'advert-status', this.locale, this.model));
+    this.model.pauseAd.addBinding(
+      new BindingPauseAd(this.view, 'advert-pause-ad', this.locale, this.config?.pauseAdVisible)
+    );
 
     // Bind the model fields to the participants tab.
     this.model.results.forEach((r) =>
@@ -299,6 +303,18 @@ export class Controller implements AuditHandler {
         break;
       case 'data-preferences':
         this.changeDataTab(DataTabs.Preferences);
+        break;
+      case 'pause-ad-confirm':
+        this.model.pauseAd.value = true;
+        this.processCard('advert');
+        break;
+      case 'pause-ad-cancel':
+        this.model.pauseAd.value = false;
+        this.processCard('advert');
+        break;
+      case 'pause-ad-complete':
+        this.model.pauseAd.value = false;
+        this.processCard('advert');
         break;
       default:
         Controller.log.Warn(`Action '${action}' is not known`);

@@ -938,7 +938,11 @@
     // See tests for audit component for creation of mock audit log options.
     // Options; 'all-good', 'result-error', 'corrupt-signature', 'identity-not-found'
     element.setAttribute('auditLog', 'all-good');
-    new OKA.Controller().bind(element.id);
+    new OKA.Controller({ 
+        pauseAdVisible: true, // Set to false to make the pause ad feature invisible
+        brandName: "Demo", // Not current used.
+        // Logo in the header.
+        logoUrls: ['https://prebid.org/wp-content/uploads/2021/02/Prebid-Logo-RGB-Full-Color-Medium.svg'] }).bind(element.id);
 </script>
 
 </body>

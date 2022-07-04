@@ -24,6 +24,7 @@ import dataComponent from './html/components/data.html';
 import statusSlugGood from './html/components/statussluggood.html';
 import statusSlugSuspicious from './html/components/statusslugsuspicious.html';
 import statusSlugViolation from './html/components/statusslugviolation.html';
+import pauseAdConfirm from './html/components/pauseadconfirm.html';
 import { getDate } from '@core/timestamp';
 import { IModel } from '@core/ui/fields';
 import { Identifier, IdsAndPreferences, PreferencesData, TransmissionResult } from '@core/model';
@@ -533,6 +534,42 @@ export class BindingTabButton<T, M extends IModel> extends BindingViewOnly<T, M,
       } else {
         active.forEach((c) => element.classList.remove(c));
         waiting.forEach((c) => element.classList.add(c));
+      }
+    }
+    return element;
+  }
+}
+
+export class BindingPauseAd extends BindingViewOnly<boolean, Model, HTMLDivElement> {
+  /**
+   * Binding for the pause ad div element for the prompt and confirmation components.
+   * @param auditView
+   * @param id
+   * @param locale
+   * @param visible true if the pause ad feature is enabled
+   */
+  constructor(
+    private readonly auditView: View,
+    id: string,
+    private readonly locale: ILocale,
+    private readonly visible = false
+  ) {
+    super(auditView, id);
+  }
+
+  refresh(): HTMLDivElement {
+    const element = super.getElement();
+    if (element) {
+      if (this.visible === false) {
+        element.classList.add('ok-ui-hidden');
+      } else {
+        if (this.field.value) {
+          this.auditView.popoverContainer.innerHTML = pauseAdConfirm(this.locale);
+          this.auditView.popoverContainer.classList.remove('ok-ui-hidden');
+        } else {
+          this.auditView.popoverContainer.innerHTML = '';
+          this.auditView.popoverContainer.classList.add('ok-ui-hidden');
+        }
       }
     }
     return element;

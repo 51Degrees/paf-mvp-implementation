@@ -27,7 +27,7 @@ advertGoodBody:
   - Everything is fine with the participants who helped display this content.
 advertSuspiciousTitle: Suspicious transactions detected
 advertSuspiciousBody: 
-  - "[SuspiciousParticipants] participants who helped display this content couldn't be verified." 
+  - " [SuspiciousParticipants] participants who helped display this content couldn't be verified." 
 advertSuspiciousButton: Check participants
 advertViolationTitle: Violations detected
 advertViolationBody:
@@ -42,12 +42,10 @@ advertLearnMoreUrl: https://portal.onekey.network
 ## Advert pause
 advertPauseTitle: Pause this Ad
 advertPauseInstruction: If you don’t like this advert, you can let the brand know.
-advertPauseButton: Pause this Ad
 
 # Data
 dataTitle: Data
 dataIntro: This is the data used to select this content.
-
 dataPreference: Marketing preference
 dataPreferenceStandard: Standard
 dataPreferencePersonalized: Personalized
@@ -80,6 +78,8 @@ download: Download data (JSON)
 close: Close
 terms: See Terms
 contact: Contact
+cancel: Cancel
+pauseAd: Pause Ad
 
 # DPO email
 emailPreferencePersonalized: Personalized marketing
@@ -118,3 +118,17 @@ downloadBox2Title: Report to authorities
 downloadBox2Body: Send to data protection authorities.
 downloadBox3Title: Keep records
 downloadBox3Body: Record all the advertising you've been exposed to.
+
+# Pause Ad
+pauseAdTitle: You’re about to send a signal to pause this advert
+pauseAdBody:
+  - If you select the pause button a signal will be sent to the advertiser and their suppliers that you would rather not see this advert again.
+  - If you also provide an optional reason then this will also be sent to them.
+  - The advert may not be paused immediately. If you rest your random browser id then the preference to pause this advert will be forgotten.
+pauseAdQuestion: Help the advertiser understand why you want to pause this advert. (optional)
+pauseAdAnswer1: Purchased the product or service.
+pauseAdAnswer1Explained: Advertisers don’t always know when you’ve purchased something from them as you browse the open web.
+pauseAdAnswer2: Not appropriate to me.
+pauseAdAnswer2Explained: Advertisers don’t always know who you are and what you like. Sometimes they’ll choose to show you adverts that aren’t relevant or appropriate. 
+pauseAdAnswer3: Seen it too often.
+pauseAdAnswer3Explained: Advertisers try to show you the right amount of advertising. Helping them understand when they show an advert too often helps them improve.
