@@ -2,4 +2,8 @@
   font-weight: 700;
   color: $brand-primary;
   text-decoration: none;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
 }

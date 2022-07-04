@@ -10,8 +10,11 @@ export default {
   title: 'Groups/Advert'
 };
 
+const ariaTitleId = 'ok-ui-card-title-advert';
+
 export const Advert = (args = {}) => Card({
   blocked: !!args.blocked,
+  ariaTitleId,
   children: `
     ${CardHeader()}
     ${CardBody({
@@ -24,7 +27,7 @@ export const Advert = (args = {}) => Card({
         })}
 
         <div class="ok-ui-advert-details">
-          <h1 class="ok-ui-heading-1 ok-ui-mb-0.5">This ad is personalized for you</h1>
+          <h1 class="ok-ui-heading-1 ok-ui-mb-0.5" id="${ariaTitleId}">This ad is personalized for you</h1>
           <p class="ok-ui-meta ok-ui-mb-2">
             ${StatusWrapper({ type: 'good', children: 'As you requested on 30-03-2022', iconPosition: 'end' })}
           </p>
@@ -52,16 +55,18 @@ export const SquareAdvert = () => Advert({ width: 600, height: 600 });
 
 export const LeaderboardAdvert = () => Advert({ width: 728, height: 90, landscape: true });
 
+const popoverAriaTitleId = 'ok-ui-card-title-advert-popover';
+
 export const AdvertWithPopover = () => `
   ${Advert({
     blocked: true,
     children: `
-      <div class="ok-ui-popover ok-ui-card">
+      <div class="ok-ui-popover ok-ui-card" role="dialog" aria-labelledby="${popoverAriaTitleId}">
         <div class="ok-ui-popover__header">
           ${Button({ style: 'text', icon: Cross(), iconOnly: true })}
         </div>
 
-        <h1 class="ok-ui-heading-1 ok-ui-mb-2">You are about the pause Bubble’s ad</h1>
+        <h1 class="ok-ui-heading-1 ok-ui-mb-2" id="${popoverAriaTitleId}">You are about the pause Bubble’s ad</h1>
 
         <p>In mus ultricies sed venenatis nisi, adipiscing. Tortor lacinia et eros, tellus porta facilisi augue aenean.</p>
         
@@ -95,6 +100,7 @@ export const AdvertWithPopover = () => `
 
 export const PausedAdvert = (args = {}) => Card({
   blocked: !!args.blocked,
+  ariaTitleId,
   children: `
     ${CardHeader()}
     ${CardBody({
@@ -103,7 +109,7 @@ export const PausedAdvert = (args = {}) => Card({
         ${AdvertImage({ paused: true })}
 
         <div class="ok-ui-advert-details">
-          <h1 class="ok-ui-heading-1">This ad is personalized for you</h1>
+          <h1 class="ok-ui-heading-1" id="${ariaTitleId}">This ad is personalized for you</h1>
           <p class="ok-ui-meta ok-ui-mb-2">As you requested on 30-03-2022</p>
 
           <p class="ok-ui-lede">Thank you for supporting high value advertising and journalism 
@@ -127,6 +133,7 @@ export const PausedAdvert = (args = {}) => Card({
 
 export const BlockedAdvert = (args = {}) => Card({
   blocked: !!args.blocked,
+  ariaTitleId,
   children: `
     ${CardHeader()}
     ${CardBody({
@@ -135,7 +142,7 @@ export const BlockedAdvert = (args = {}) => Card({
         ${BlockedAdvertImage()}
 
         <div class="ok-ui-advert-details">
-          <h1 class="ok-ui-heading-1 ok-ui-mb-1">This ad was not displayed</h1>
+          <h1 class="ok-ui-heading-1 ok-ui-mb-1" id="${ariaTitleId}">This ad was not displayed</h1>
 
           <p class="ok-ui-lede">We are keeping your data safe, and if we find any advert which violates them, we are not going to show it to you.</p>
 

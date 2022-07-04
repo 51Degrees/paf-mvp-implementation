@@ -18,7 +18,8 @@ Participant.args = {
   status: 'trusted',
   parties: 0,
   winning: false,
-  loading: false
+  loading: false,
+  noActions: false
 };
 
 export const WinningParticipant = ParticipantComponent.bind({});

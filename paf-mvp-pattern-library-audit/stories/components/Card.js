@@ -17,7 +17,7 @@ export const CardHeader = (props = {}) => `
         </ul>
 
         <div class="ok-ui-card__header-close">
-          ${Button({ style: 'text', icon: Cross(), iconOnly: true })}
+          ${Button({ style: 'text', icon: Cross(), iconOnly: true, label: 'Close' })}
         </div>
       </div>
       <nav class="ok-ui-card__header-navigation">
@@ -36,7 +36,7 @@ export const CardBody = (props = {}) => `<main class="ok-ui-card__body">
 </main>`;
 
 export default (props = {}) => `
-  <section class="ok-ui-card${props.blocked ? ' ok-ui-card--blocked' : ''}">${props.children || `
+  <section tabindex="-1" role="dialog"${props.ariaTitleId ? ` aria-labelledby="${props.ariaTitleId}"` : ''} class="ok-ui-card${props.blocked ? ' ok-ui-card--blocked' : ''}">${props.children || `
     ${CardHeader()}
     ${CardBody()}
   `}</section>

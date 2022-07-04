@@ -10,7 +10,7 @@ export default {
 const PopupFooter = () => `
   <div class="ok-ui-popup__footer">
     <h2 class="ok-ui-heading-2">Advert audit</h2>
-    ${Button({ style: 'text', icon: Cross(), iconOnly: true })}
+    ${Button({ style: 'text', icon: Cross(), iconOnly: true, label: 'Close' })}
   </div>
 `;
 

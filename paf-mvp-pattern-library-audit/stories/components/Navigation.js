@@ -22,32 +22,32 @@ export default (args) => {
         </span>
       </label>
       <div class="ok-ui-navigation">
-        <ul class="ok-ui-navigation__list">
-          <li class="ok-ui-navigation__item ${selected === 1 ? 'ok-ui-navigation__item--selected' : ''}">
+        <div class="ok-ui-navigation__list">
+          <button class="ok-ui-navigation__item ${selected === 1 ? 'ok-ui-navigation__item--selected' : ''}">
             <span class="ok-ui-navigation__icon">
               ${Loudhailer()}
             </span>
             <span class="ok-ui-navigation__label">${items[0]}</span>
-          </li>
-          <li class="ok-ui-navigation__item ${selected === 2 ? 'ok-ui-navigation__item--selected' : ''}">
+          </button>
+          <button class="ok-ui-navigation__item ${selected === 2 ? 'ok-ui-navigation__item--selected' : ''}">
             <span class="ok-ui-navigation__icon">
               ${Folder()}
             </span>
             <span class="ok-ui-navigation__label">${items[1]}</span>
-          </li>
-          <li class="ok-ui-navigation__item ${selected === 3 ? 'ok-ui-navigation__item--selected' : ''}">
+          </button>
+          <button class="ok-ui-navigation__item ${selected === 3 ? 'ok-ui-navigation__item--selected' : ''}">
             <span class="ok-ui-navigation__icon">
               ${Users()}
             </span>
             <span class="ok-ui-navigation__label">${items[2]}</span>
-          </li>
-          <li class="ok-ui-navigation__item ${selected === 4 ? 'ok-ui-navigation__item--selected' : ''}">
+          </button>
+          <button class="ok-ui-navigation__item ${selected === 4 ? 'ok-ui-navigation__item--selected' : ''}">
             <span class="ok-ui-navigation__icon">
               ${Download()}
             </span>
             <span class="ok-ui-navigation__label">${items[3]}</span>
-          </li>
-        </ul>
+          </button>
+        </div>
       </div>
     </div>
   `
