@@ -18,6 +18,7 @@ import {
 } from './bindings';
 import { Marketing } from '@core/model/marketing';
 import { IConfig } from './config';
+import { BindingElement } from '@core/ui/binding';
 
 // TODO: Remove the mock audit log code.
 interface Mock {
@@ -76,7 +77,7 @@ export class Controller implements AuditHandler {
     if (this.element) return; // Audit is already registered for this element.
     this.setElement(advertElementOrId);
     this.locale.advertHtml = this.element.outerHTML; // Must get the advert HTML *before* adding the audit viewer.
-    this.view = new View(this.element, this.locale, Controller.log);
+    this.view = new View(this.element, this.locale, this.config, Controller.log);
     this.view.initView(); // Initializes the view sufficient to display the icon.
     this.bindActions(); // Needed to bind the open icon before the model is created and verified.
     Controller.log.Info('Audit registered', this.element.id);
@@ -191,6 +192,17 @@ export class Controller implements AuditHandler {
         () => this.model.overall.value !== OverallStatus.Good
       )
     );
+    this.model.participantsTab.addBinding(
+      new BindingElement(
+        this.view,
+        'participants-intro',
+        this.buildMapParticipants([
+          <string>this.locale.participantsThisContentIntro,
+          <string>this.locale.participantsIdentifiedIntro,
+          <string>this.locale.participantsSuspiciousIntro,
+        ])
+      )
+    );
 
     // Bind the your data fields.
     this.model.dataTab.addBinding(
@@ -215,13 +227,26 @@ export class Controller implements AuditHandler {
 
   /**
    * Builds a map of marketing preferences to UI text.
-   * @param text array of four text values
+   * @param text array of two text values
    * @returns
    */
   private buildMap(text: string[]): Map<PreferencesData, string> {
     return new Map<PreferencesData, string>([
       [Marketing.personalized, text[0]],
       [Marketing.standard, text[1]],
+    ]);
+  }
+
+  /**
+   * Builds a map of participant options to UI text.
+   * @param text array of three text values
+   * @returns
+   */
+  private buildMapParticipants(text: string[]): Map<ParticipantsTabs, string> {
+    return new Map<ParticipantsTabs, string>([
+      [ParticipantsTabs.This, text[0]],
+      [ParticipantsTabs.All, text[1]],
+      [ParticipantsTabs.Suspicious, text[2]],
     ]);
   }
 

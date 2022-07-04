@@ -3,7 +3,7 @@
 # Quick Start
 
 The following code added to any HTML page that can access the
-ok-ui-audit-en-us.js script will demonstrate the features of the audit log by
+`ok-ui-audit-en-us.js` script will demonstrate the features of the audit log by
 adding a OneKey icon under the initial div element.
 
 ```html
@@ -31,10 +31,26 @@ called with the id of the advert.
 The bind method will insert a OneKey icon under the advert which when pressed
 will open the Audit Viewer.
 
+Optional configuration can be provided to the constructor of the 
+`OKA.Controller` to specify the id of an element, or the element instance, that
+will be used to open the Audit Viewer when clicked. The following example shows
+a button with the id `open-audit` being used as the trigger element.
+
+```html
+<button id="advert-audit">Open Audit</button>
+<script>
+  // Add the audit viewer with the new open audit element.
+  new OKA.Controller({auditClickElement: "advert-audit"}).bind(advert.id);
+</script>
+```
+
+The [example](./index.html) static page provides various examples for deploying
+the audit viewer functionality.
+
 ## Configuration Options
 
 The constructor of the `OKA.Controller` class takes an optional interface with
-three fields.
+the following fields.
 
 -   brandName: provides the name used whenever an entity that is responsible for
     providing the audit log needs to be named. This will typically be the name
@@ -43,9 +59,11 @@ three fields.
 -   logoUrls: an array of string URLs that relate to logos that should appear in
     the header of the audit viewer related to the brand of the entity that is
     responsible for providing the audit log. This might include the brand logo
-    of the publisher and advertiser, or their suppliers. No additional logs will
-    be displayed if not provided.
+    of the publisher and advertiser, or their suppliers.
 -   pauseAdVisible: true to show the pause this ad feature, otherwise false.
+-   auditClickElement: HTML element or id that will have a click event 
+    registered to open the audit viewer. If not provided a OneKey icon will be
+    added at the bottom of the advert container.
 
 # Overview
 
@@ -59,13 +77,12 @@ The module is implemented to defer any high-cost activity, such as the fetching
 of public keys needed for verification, until the point the user engages with
 the module. As such the audit viewer module does not know if the audit log is
 valid or contains suspicious activity or violations until the user interacts
-with the OneKey icon under the advert.
+with the trigger element.
 
-The tapping of the OneKey icon under the advert will initiate all activity. A
-single parent Promise is used to commence verification which only resolves when
-all the identifies are fetched and verification has been completed. The module
-displays an in-progress status page whilst this background activity is being
-carried out.
+Clicking the trigger element will initiate all auditing activity. A single 
+parent Promise is used to commence verification which only resolves when all the
+identifies are fetched and verification has been completed. The module displays
+an in-progress status page whilst this background activity is being carried out.
 
 ## Developers
 

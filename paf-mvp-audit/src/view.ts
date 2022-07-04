@@ -17,6 +17,7 @@ import { ILocale } from '@core/ui/ILocale';
 import { IView } from '@core/ui/binding';
 import { Log } from '@core/log';
 import { Model } from './model';
+import { IConfig } from './config';
 
 export class View implements IView {
   // The shadow root for the UI.
@@ -38,7 +39,7 @@ export class View implements IView {
   public popoverContainer: HTMLDivElement | null = null;
 
   // The container for the button that opens the audit modal dialog.
-  private buttonContainer: HTMLDivElement | null = null;
+  private triggerElement: HTMLElement | null = null;
 
   // The list of navigation elements.
   private navigationList: HTMLDivElement | null = null;
@@ -58,7 +59,12 @@ export class View implements IView {
    * @param locale the language file to use with the UI
    * @param log
    */
-  constructor(private readonly advert: HTMLElement, public readonly locale: ILocale, private readonly log: Log) {
+  constructor(
+    private readonly advert: HTMLElement,
+    private readonly locale: ILocale,
+    private readonly config: IConfig,
+    private readonly log: Log
+  ) {
     this.advertWidth = advert.clientWidth;
     this.locale.navAdvertHTML = navAdvert(locale);
     this.locale.navDataHTML = navData(locale);
@@ -78,15 +84,29 @@ export class View implements IView {
     // TODO: Fix CSS include to remove the magic character at the beginning of the CSS file.
     style.innerHTML = (<string>css).trim();
 
-    // Create the new container for the button and add the HTML.
-    this.buttonContainer = document.createElement('div');
-    this.buttonContainer.classList.add('ok-ui');
-    this.buttonContainer.innerHTML = buttonTemplate(this.locale);
+    // Find the audit click element if provided.
+    if (this.config.auditClickElement) {
+      if (this.config.auditClickElement instanceof HTMLElement) {
+        this.triggerElement = this.config.auditClickElement;
+      } else {
+        this.triggerElement = document.getElementById(this.config.auditClickElement);
+      }
+    }
 
     // If the pop up is valid then append the container and store a reference to the pop up element.
     this.root = this.outerContainer.attachShadow({ mode: 'closed' });
     this.root.appendChild(style);
-    this.root.appendChild(this.buttonContainer);
+
+    // Create the new container for the button and add the HTML if the configuration did not provide one.
+    if (!this.triggerElement) {
+      this.triggerElement = document.createElement('div');
+      this.triggerElement.classList.add('ok-ui');
+      this.triggerElement.innerHTML = buttonTemplate(this.locale);
+      this.root.appendChild(this.triggerElement);
+    }
+
+    // Ensure the trigger element has the data action for open associated with it.
+    this.triggerElement.setAttribute('data-action', 'open');
 
     // Change the advert to include the OneKey class.
     this.advert.classList.add('ok-ui-website-advert');
@@ -134,6 +154,7 @@ export class View implements IView {
   public getActionElements(): HTMLElement[] {
     this.initPopUp();
     const elements: HTMLElement[] = [];
+    elements.push(this.triggerElement);
     View.addElements(elements, this.root.querySelectorAll('button'));
     View.addElements(elements, this.root.querySelectorAll('a'));
     View.addElements(elements, this.root.querySelectorAll('li.ok-ui-navigation__item'));
@@ -216,10 +237,10 @@ export class View implements IView {
       case 'data':
         this.navigationToggleStateLabel.innerHTML = <string>this.locale.navDataHTML;
         break;
-      case 'download':
+      case 'participants':
         this.navigationToggleStateLabel.innerHTML = <string>this.locale.navParticipantsHTML;
         break;
-      case 'participants':
+      case 'download':
         this.navigationToggleStateLabel.innerHTML = <string>this.locale.navDownloadHTML;
         break;
       default:

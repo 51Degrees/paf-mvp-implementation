@@ -13,9 +13,9 @@
   <table style="margin: 0 auto">
     <tr>
       <td>
-          <div id="advert-narrow-good" style="width: 200px; background-color: lightgreen;">
-            <p style="text-align: center">Narrow Good</p>
-          </div>
+        <div id="advert-narrow-good" style="width: 200px; background-color: lightgreen;">
+          <p style="text-align: center">Narrow Good</p>
+        </div>
       </td>
       <td>
         <div id="advert-wide-good" style="width: 400px; background-color: lightgreen;">
@@ -25,9 +25,9 @@
     </tr>
     <tr>
       <td>
-          <div id="advert-narrow-missing" style="width: 200px; background-color: lightsalmon;">
-            <p style="text-align: center">Narrow Missing Identity</p>
-          </div>
+        <div id="advert-narrow-missing" style="width: 200px; background-color: lightsalmon;">
+          <p style="text-align: center">Narrow Missing Identity</p>
+        </div>
       </td>
       <td>
         <div id="advert-wide-missing" style="width: 400px; background-color: lightsalmon;">
@@ -37,18 +37,20 @@
     </tr>
     <tr>
       <td>
-          <div id="advert-narrow-violating" style="width: 200px; background-color: lightcoral;">
-            <p style="text-align: center">Narrow Violating</p>
-          </div>
+        <div id="advert-narrow-violating" style="width: 200px; background-color: lightcoral;">
+          <p style="text-align: center">Narrow Violating</p>
+        </div>
+        <button id="advert-narrow-violating-button">Open Audit Viewer</button>
       </td>
       <td>
         <div id="advert-wide-violating" style="width: 400px; background-color: lightcoral;">
           <p style="text-align: center">Wide Violating</p>
         </div>
+        <button id="advert-wide-violating-button" style="text-align: right">Open Audit Viewer</button>
       </td>
     </tr>
   </table>
- 
+
   <script src="dist/ok-ui-audit-en-us.js"></script>
   <script>
 
@@ -57,7 +59,11 @@
     function bindAuditViewer(adElementId, mockName) {
       const adElement = document.getElementById(adElementId);
       adElement.setAttribute('auditLog', mockName);
-      new OKA.Controller().bind(adElement.id);
+      new OKA.Controller({ 
+        auditClickElement: adElementId + '-button',
+        pauseAdVisible: true,
+        logoUrls: ["https://prebid.org/wp-content/uploads/2021/02/Prebid-Logo-RGB-Full-Color-Medium.svg"] 
+      }).bind(adElement.id);
     }
 
     // See tests for audit component for creation of mock audit log options.
