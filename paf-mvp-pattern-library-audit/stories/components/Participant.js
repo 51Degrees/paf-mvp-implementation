@@ -26,6 +26,7 @@ export default (args) => {
   const status = args.status || 'trusted';
   const loading = args.loading || false;
   const winning = args.winning || false;
+  const noActions = args.noActions || false;
   const show = args.parties && args.show || false;
 
   const classes = ['ok-ui-participant'];
@@ -50,10 +51,12 @@ export default (args) => {
             ${winning ? `${Trophy()} Bidding platform` : 'Site displays the ad'}
           </p>
         </div>
-        <div class="ok-ui-participant__actions">
-          ${Button({ style: 'outlined', type: 'primary', label: 'See Terms', icon: External(), iconPosition: 'end' })}
-          ${Button({ style: 'outlined', type: 'danger', label: 'Report', icon: External(), iconPosition: 'end' })}
-        </div>
+        ${noActions ? '' : `
+          <div class="ok-ui-participant__actions">
+            ${Button({ style: 'outlined', type: 'primary', label: 'See Terms', icon: External(), iconPosition: 'end' })}
+            ${Button({ style: 'outlined', type: 'danger', label: 'Report', icon: External(), iconPosition: 'end' })}
+          </div>
+        `}
       </div>
       ${args.parties ? `
         <div class="ok-ui-participant__footer">

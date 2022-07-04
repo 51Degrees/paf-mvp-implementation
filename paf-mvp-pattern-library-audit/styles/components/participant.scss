@@ -78,15 +78,15 @@
 
   .ok-ui-participant__status-wrapper {
     margin-left: auto;
-
-    padding-right: em(24px);
-    border-right: solid 1px $grey-100;
-    margin-right: em(24px);
   }
 }
 
 .ok-ui-participant__actions {
   display: flex;
+
+  padding-left: em(24px);
+  border-left: solid 1px $grey-100;
+  margin-left: em(24px);
 }
 
 .ok-ui-participant__footer {

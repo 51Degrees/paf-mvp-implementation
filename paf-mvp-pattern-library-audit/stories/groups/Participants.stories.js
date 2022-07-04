@@ -30,7 +30,7 @@ export const Participants = () => Card({
         <p class="ok-ui-mb-3">Explanation of “winners” ... Facilisi senectus feugiat dolor, aliquam semper gravida nulla. Turpis ut porta nibh sodales. Velit sit diam vestibulum sit nec.</p>
 
         ${Participant({ status: 'trusted', winning: true })}
-        ${Participant({ status: 'suspicious', parties: 1 })}
+        ${Participant({ status: 'suspicious', parties: 1, noActions: true })}
         ${Participant({ status: 'violation', parties: 2, show: true })}
 
         ${ParticipantParties({ children: `
