@@ -29,8 +29,14 @@ $navigation-dropdown-tablet-width: em(172px);
 .ok-ui-navigation__item:not(.ok-ui-navigation__item--selected) {
   cursor: pointer;
 
-  &:focus,
   &:hover {
+    color: $brand-600;
+    border-color: $brand-600;
+  }
+}
+
+.ok-ui-navigation__item {
+  &:focus {
     color: $brand-600;
     border-color: $brand-600;
   }

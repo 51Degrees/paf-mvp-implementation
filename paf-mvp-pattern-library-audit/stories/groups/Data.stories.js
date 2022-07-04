@@ -6,7 +6,10 @@ export default {
   title: 'Groups/Data'
 };
 
+const ariaTitleId = 'ok-ui-card-title-data';
+
 export const Data = () => Card({
+  ariaTitleId,
   children: `
     ${CardHeader({
       navigationSelected: 2
@@ -15,7 +18,7 @@ export const Data = () => Card({
       children: `
         <div class="ok-ui-data-header">
           <div>
-            <h1 class="ok-ui-heading-1 ok-ui-mb-1">Your data</h1>
+            <h1 class="ok-ui-heading-1 ok-ui-mb-1" id="${ariaTitleId}">Your data</h1>
             <p class="ok-ui-mb-1">This is your data which was associated with this advert.</p>
           </div>
           

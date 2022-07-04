@@ -6,14 +6,17 @@ export default {
   title: 'Groups/Download'
 };
 
+const ariaTitleId = 'ok-ui-card-title-download';
+
 export const Download = () => Card({
+  ariaTitleId,
   children: `
     ${CardHeader({
       navigationSelected: 4
     })}
     ${CardBody({
       children: `
-        <h1 class="ok-ui-heading-1 ok-ui-mb-1">Download this audit's data</h1>
+        <h1 class="ok-ui-heading-1 ok-ui-mb-1" id="${ariaTitleId}">Download this audit's data</h1>
         <p class="ok-ui-mb-1">Venenatis tempus a nunc sit leo, sed. Fermentum tellus quis quam aenean sit. Pulvinar mi proin nulla est libero mauris cras et urna. Molestie diam interdum ut in porta malesuada.</p>
 
         <hr class="ok-ui-divide">

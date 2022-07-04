@@ -6,14 +6,17 @@ export default {
   title: 'Groups/Participants'
 };
 
+const ariaTitleId = 'ok-ui-card-title-participants';
+
 export const Participants = () => Card({
+  ariaTitleId,
   children: `
     ${CardHeader({
       navigationSelected: 3
     })}
     ${CardBody({
       children: `
-        <h1 class="ok-ui-heading-1 ok-ui-mb-1">Participants</h1>
+        <h1 class="ok-ui-heading-1 ok-ui-mb-1" id="${ariaTitleId}">Participants</h1>
         <p class="ok-ui-mb-1">Organisations that have participated in the display of the ad Velit fermentum, tortor convallis enim, phasellus adipiscing feugiat. Pretium aliquam faucibus velit quis massa dui.</p>
 
         <hr class="ok-ui-divide">

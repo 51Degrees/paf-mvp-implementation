@@ -1,4 +1,4 @@
-import { ArrowRight } from "./Icons";
+import { ArrowRight } from './Icons';
 
 export default (args) => {
   let icon = '';
@@ -31,9 +31,9 @@ export default (args) => {
     icon = args.icon;
   }
   
-  return `<button type="button" class="${classes.join(' ')}"${args.disabled ? ' disabled' : ''}>
+  return `<button type="button" class="${classes.join(' ')}"${args.disabled ? ' disabled' : ''}${args.label && args.iconOnly ? ` aria-label="${args.label}"` : ''}>
     ${icon ? icon : ''}
 
-    ${args.label ? `<span class="ok-ui-button__label">${args.label}</span>` : ''}
+    ${args.label && !args.iconOnly ? `<span class="ok-ui-button__label">${args.label}</span>` : ''}
   </button>`;
 };
