@@ -25,8 +25,8 @@
     </tr>
     <tr>
       <td>
-        <div id="advert-narrow-missing" style="width: 200px; background-color: lightsalmon;">
-          <p style="text-align: center">Narrow Missing Identity</p>
+        <div id="advert-narrow-result-error" style="width: 200px; background-color: lightsalmon;">
+          <p style="text-align: center">Narrow Result Error</p>
         </div>
       </td>
       <td>
@@ -70,9 +70,9 @@
     // Options; 'all-good', 'result-error', 'corrupt-signature', 'identity-not-found'
     bindAuditViewer('advert-narrow-good', 'all-good');
     bindAuditViewer('advert-wide-good', 'all-good');
-    bindAuditViewer('advert-narrow-missing', 'identity-not-found');
+    bindAuditViewer('advert-narrow-result-error', 'result-error');
     bindAuditViewer('advert-wide-missing', 'identity-not-found');
-    bindAuditViewer('advert-narrow-violating', 'result-error');
+    bindAuditViewer('advert-narrow-violating', 'corrupt-signature');
     bindAuditViewer('advert-wide-violating', 'corrupt-signature');
 
   </script>

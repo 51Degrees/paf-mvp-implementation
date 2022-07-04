@@ -37,9 +37,9 @@ export enum DataTabs {
  * Different status associated with fields in the model.
  */
 export enum VerifiedStatus {
-  IdentityNotFound = 'IdentityNotFound',
-  Valid = 'Valid',
-  NotValid = 'NotValid',
+  Good = 'Good', // verification passed and status was 'success'
+  Suspicious = 'Suspicious', // identity could not be found or status was not 'success'
+  Violation = 'Violation', // verification failed
   Processing = 'Processing', // model verification is not complete
 }
 
@@ -113,9 +113,9 @@ export abstract class VerifiedValue<T> implements IVerifiedValue {
       return VerifiedStatus.Processing;
     }
     if (this.identity) {
-      return this.valid ? VerifiedStatus.Valid : VerifiedStatus.NotValid;
+      return this.valid ? VerifiedStatus.Good : VerifiedStatus.Violation;
     }
-    return VerifiedStatus.IdentityNotFound;
+    return VerifiedStatus.Suspicious;
   }
 
   /**
@@ -298,6 +298,17 @@ export class VerifiedTransmissionResult extends VerifiedValue<TransmissionResult
     const subject = encodeURIComponent(<string>locale.emailSubject);
     return `mailto:${this.identity.dpo_email}?subject=${subject}&body=${body}`;
   }
+
+  /**
+   * Consider the status returned in the transmission result.
+   */
+  public get verifiedStatus(): VerifiedStatus {
+    let status = super.verifiedStatus;
+    if (this.value.status !== 'success') {
+      status = VerifiedStatus.Suspicious;
+    }
+    return status;
+  }
 }
 
 /**
@@ -448,12 +459,12 @@ export class Model implements IModel {
    */
   public getOverall(): OverallStatus {
     if (
-      this.allVerifiedFields.every((s) => s.value.verifiedStatus === VerifiedStatus.Valid) &&
+      this.allVerifiedFields.every((s) => s.value.verifiedStatus === VerifiedStatus.Good) &&
       this.results.every((s) => s.value.value.status === 'success')
     ) {
       return OverallStatus.Good;
     }
-    if (this.allVerifiedFields.some((s) => s.value.verifiedStatus === VerifiedStatus.NotValid)) {
+    if (this.allVerifiedFields.some((s) => s.value.verifiedStatus === VerifiedStatus.Violation)) {
       return OverallStatus.Violation;
     }
     return OverallStatus.Suspicious;

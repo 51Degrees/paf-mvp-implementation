@@ -84,8 +84,8 @@ export class BindingOverallStatus extends BindingViewOnly<OverallStatus, Model, 
     const element = super.getElement();
     if (element !== null) {
       element.innerHTML = this.getStatusTemplate(this.field.value)(this.locale)
-        .replace('[SuspiciousParticipants]', this.model.count(VerifiedStatus.IdentityNotFound).toLocaleString())
-        .replace('[ViolatingParticipants]', this.model.count(VerifiedStatus.NotValid).toLocaleString());
+        .replace('[SuspiciousParticipants]', this.model.count(VerifiedStatus.Suspicious).toLocaleString())
+        .replace('[ViolatingParticipants]', this.model.count(VerifiedStatus.Violation).toLocaleString());
     }
     return element;
   }
@@ -264,11 +264,11 @@ export abstract class BindingIdsAndPreferences<T, F extends VerifiedValue<T>> ex
 
   private getStatusSlugHTML(): string {
     switch (this.field.value.verifiedStatus) {
-      case VerifiedStatus.Valid:
+      case VerifiedStatus.Good:
         return statusSlugGood(this.locale);
-      case VerifiedStatus.NotValid:
+      case VerifiedStatus.Violation:
         return statusSlugViolation(this.locale);
-      case VerifiedStatus.IdentityNotFound:
+      case VerifiedStatus.Suspicious:
         return statusSlugSuspicious(this.locale);
     }
     return '';
@@ -390,7 +390,7 @@ export class BindingParticipant extends BindingVerifiedField<TransmissionResult,
         current.classList.remove('ok-ui-hidden');
         break;
       case ParticipantsTabs.Suspicious:
-        if (this.field.value.verifiedStatus === VerifiedStatus.Valid) {
+        if (this.field.value.verifiedStatus === VerifiedStatus.Good) {
           current.classList.add('ok-ui-hidden');
         } else {
           current.classList.remove('ok-ui-hidden');
@@ -450,11 +450,11 @@ export class BindingParticipant extends BindingVerifiedField<TransmissionResult,
    */
   private getStatusTemplate(status: VerifiedStatus): Component {
     switch (status) {
-      case VerifiedStatus.Valid:
+      case VerifiedStatus.Good:
         return participantTrusted;
-      case VerifiedStatus.IdentityNotFound:
+      case VerifiedStatus.Suspicious:
         return participantSuspicious;
-      case VerifiedStatus.NotValid:
+      case VerifiedStatus.Violation:
         return participantViolating;
     }
     return statusInProgress;

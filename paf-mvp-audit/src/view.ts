@@ -272,7 +272,8 @@ export class View implements IView {
       const logos = this.innerContainer.getElementsByClassName('ok-ui-card__header-logos');
       for (let i = 0; i < logos.length; i++) {
         (<string[]>this.locale.logoUrls).forEach((u) => {
-          logos[i].innerHTML += `<li><img src='${u}'/></li>`;
+          // TODO: Remove min-width when pattern library updated.
+          logos[i].innerHTML += `<li><img src='${u}' style="min-width: 100px"/></li>`;
         });
       }
     }
