@@ -937,7 +937,7 @@
     const element = document.getElementById("mock");
     // See tests for audit component for creation of mock audit log options.
     // Options; 'all-good', 'result-error', 'corrupt-signature', 'identity-not-found'
-    element.setAttribute('auditLog', 'all-good');
+    element.setAttribute('auditLog', 'identity-not-found');
     new OKA.Controller({ 
         pauseAdVisible: true, // Set to false to make the pause ad feature invisible
         brandName: "Demo", // Not current used.
