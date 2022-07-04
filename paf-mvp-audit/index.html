@@ -10,42 +10,65 @@
 
 <body style="width: 100%">
 
-  <div id="advert" style="width: 200px; margin: 0 auto; background-color: aqua;">
-    <p style="text-align: center">Narrow Advert</p>
-  </div>
+  <table style="margin: 0 auto">
+    <tr>
+      <td>
+          <div id="advert-narrow-good" style="width: 200px; background-color: lightgreen;">
+            <p style="text-align: center">Narrow Good</p>
+          </div>
+      </td>
+      <td>
+        <div id="advert-wide-good" style="width: 400px; background-color: lightgreen;">
+          <p style="text-align: center">Wide Good</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+          <div id="advert-narrow-missing" style="width: 200px; background-color: lightsalmon;">
+            <p style="text-align: center">Narrow Missing Identity</p>
+          </div>
+      </td>
+      <td>
+        <div id="advert-wide-missing" style="width: 400px; background-color: lightsalmon;">
+          <p style="text-align: center">Wide Missing Identity</p>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+          <div id="advert-narrow-violating" style="width: 200px; background-color: lightcoral;">
+            <p style="text-align: center">Narrow Violating</p>
+          </div>
+      </td>
+      <td>
+        <div id="advert-wide-violating" style="width: 400px; background-color: lightcoral;">
+          <p style="text-align: center">Wide Violating</p>
+        </div>
+      </td>
+    </tr>
+  </table>
+ 
   <script src="dist/ok-ui-audit-en-us.js"></script>
   <script>
-    const advert = document.getElementById("advert");
 
-    // Options; 'all-good', 'result-error', 'corrupt-signature', 'identity-not-found'
-    advert.setAttribute('auditLog', 'all-good');
-
-    // Add the audit viewer.
-    new OKA.Controller().bind(advert.id);
-  </script>
-
-
-  <div id="advert-narrow" style="width: 200px; margin: 0 auto; background-color: aqua;">
-    <p style="text-align: center">Narrow Advert</p>
-  </div>
-
-  <div id="advert-wide" style="width: 720px; margin: 0 auto; background-color: aqua;">
-    <p style="text-align: center">Wide Advert</p>
-  </div>
-
-  <script src="dist/ok-ui-audit-en-us.js"></script>
-  <script>
-    const wide = document.getElementById("advert-wide");
-    const narrow = document.getElementById("advert-narrow");
+    // adElementId - the id of the element that displays the advert.
+    // mockName - the name of the mock audit log.
+    function bindAuditViewer(adElementId, mockName) {
+      const adElement = document.getElementById(adElementId);
+      adElement.setAttribute('auditLog', mockName);
+      new OKA.Controller().bind(adElement.id);
+    }
 
     // See tests for audit component for creation of mock audit log options.
     // Options; 'all-good', 'result-error', 'corrupt-signature', 'identity-not-found'
-    wide.setAttribute('auditLog', 'all-good');
-    narrow.setAttribute('auditLog', 'identity-not-found');
+    bindAuditViewer('advert-narrow-good', 'all-good');
+    bindAuditViewer('advert-wide-good', 'all-good');
+    bindAuditViewer('advert-narrow-missing', 'identity-not-found');
+    bindAuditViewer('advert-wide-missing', 'identity-not-found');
+    bindAuditViewer('advert-narrow-violating', 'result-error');
+    bindAuditViewer('advert-wide-violating', 'corrupt-signature');
 
-    // Add the audit viewer.
-    new OKA.Controller().bind(wide.id);
-    new OKA.Controller().bind(narrow.id);
   </script>
 
 </body>
