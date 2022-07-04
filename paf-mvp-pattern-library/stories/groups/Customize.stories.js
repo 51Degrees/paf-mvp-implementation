@@ -10,16 +10,18 @@ export default {
   },
 };
 
+const ariaTitleId = 'ok-ui-card-title-customize';
+
 export const Customize = () => `
   <form>
-    ${Card({ children: `
+    ${Card({ ariaTitleId, children: `
       ${CardHeader({ children: `
         ${CardActions({ children: `
           ${CardHeaderLogo()}
       ` })}
 
         <p class="ok-ui-heading-2">Your current choice:</p>
-        <h1 class="ok-ui-heading-1 ok-ui-mb-2">Standard marketing</h1>
+        <h1 class="ok-ui-heading-1 ok-ui-mb-2" id="${ariaTitleId}">Standard marketing</h1>
 
         ${ToggleWrapper({ children: Toggle({ position: 'end', style: 'emphasis', description: 'Select all / unselect all' }) })}
       `})}

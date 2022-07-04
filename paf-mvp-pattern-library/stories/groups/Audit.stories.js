@@ -10,9 +10,11 @@ export default {
   },
 };
 
+const ariaTitleId = 'ok-ui-card-title-audit';
+
 export const Audit = () => `
   <form>
-    ${Card({ children: `
+    ${Card({ ariaTitleId, children: `
       ${CardHeader({ children: `
         ${CardActions({ children: `
           ${CardHeaderLogo()}
@@ -20,7 +22,7 @@ export const Audit = () => `
           ${Button({ style: 'text', label: 'Close', icon: CrossIcon(), iconPosition: 'end' })}
         ` })}
 
-        <h1 class="ok-ui-heading-1 ok-ui-mb-2">Your ad-funded access</h1>
+        <h1 class="ok-ui-heading-1 ok-ui-mb-2" id="${ariaTitleId}">Your ad-funded access</h1>
         <p>The following OneKey participating providers funded your access to this site’s content. These organizations do not directly identify you, but rely instead on your OneKey ID and preferences for this purpose. Your OneKey ID will automatically reset every 6 months or you can reset your ID or preference at any time by clicking&nbsp;<a href="#">here</a>.</p>
       `})}
 
