@@ -8,6 +8,11 @@ import downloadTemplate from './html/cards/download.html';
 import participantsTemplate from './html/cards/participants.html';
 import auditTemplate from './html/containers/audit.html';
 import buttonTemplate from './html/components/button.html';
+import navAdvert from './html/components/navadvert.html';
+import navData from './html/components/navdata.html';
+import navParticipants from './html/components/navparticipants.html';
+import navDownload from './html/components/navdownload.html';
+import toggleArrow from './html/components/togglearrow.html';
 import { ILocale } from '@core/ui/ILocale';
 import { IView } from '@core/ui/binding';
 import { Log } from '@core/log';
@@ -38,6 +43,12 @@ export class View implements IView {
   // The list of navigation elements.
   private navigationList: HTMLDivElement | null = null;
 
+  // The toggle state of the primary navigation.
+  private navigationToggleState: HTMLInputElement | null = null;
+
+  // The toggle state label.
+  private navigationToggleStateLabel: HTMLLabelElement | null = null;
+
   // The width of the advert before any module changes.
   private readonly advertWidth: number;
 
@@ -49,6 +60,10 @@ export class View implements IView {
    */
   constructor(private readonly advert: HTMLElement, public readonly locale: ILocale, private readonly log: Log) {
     this.advertWidth = advert.clientWidth;
+    this.locale.navAdvertHTML = navAdvert(locale);
+    this.locale.navDataHTML = navData(locale);
+    this.locale.navParticipantsHTML = navParticipants(locale);
+    this.locale.navDownloadHTML = navDownload(locale);
   }
 
   /**
@@ -101,10 +116,7 @@ export class View implements IView {
     }
 
     // Change the toggle state of the navigation to hide the drop down list in tablet width.
-    const navToggleState = <HTMLInputElement>this.root.getElementById('ok-ui-navigation-toggle-state');
-    if (navToggleState) {
-      navToggleState.checked = false;
-    }
+    this.navigationToggleState.checked = false;
   }
 
   /**
@@ -161,6 +173,7 @@ export class View implements IView {
     switch (card) {
       case 'advert':
         template = advertTemplate;
+
         break;
       case 'data':
         template = dataTemplate;
@@ -194,6 +207,25 @@ export class View implements IView {
         }
       }
     }
+
+    // Needed to ensure that the drop down menu of cards is updated to reflect the currently selected option.
+    switch (card) {
+      case 'advert':
+        this.navigationToggleStateLabel.innerHTML = <string>this.locale.navAdvertHTML;
+        break;
+      case 'data':
+        this.navigationToggleStateLabel.innerHTML = <string>this.locale.navDataHTML;
+        break;
+      case 'download':
+        this.navigationToggleStateLabel.innerHTML = <string>this.locale.navParticipantsHTML;
+        break;
+      case 'participants':
+        this.navigationToggleStateLabel.innerHTML = <string>this.locale.navDownloadHTML;
+        break;
+      default:
+        throw `Card '${card}' is not known`;
+    }
+    this.navigationToggleStateLabel.innerHTML += toggleArrow(null);
   }
 
   /**
@@ -219,8 +251,7 @@ export class View implements IView {
       const logos = this.innerContainer.getElementsByClassName('ok-ui-card__header-logos');
       for (let i = 0; i < logos.length; i++) {
         (<string[]>this.locale.logoUrls).forEach((u) => {
-          // TODO: Update pattern library to avoid the need to style the li element.
-          logos[i].innerHTML += `<li style="min-width: 100px; max-width: 150px;"><img src='${u}'/><li>`;
+          logos[i].innerHTML += `<li><img src='${u}'/></li>`;
         });
       }
     }
@@ -234,6 +265,12 @@ export class View implements IView {
 
     // Find the navigation element within the audit container.
     this.navigationList = <HTMLDivElement>this.getAuditElementByClassName('ok-ui-navigation__list');
+
+    // The navigation toggle state.
+    this.navigationToggleState = <HTMLInputElement>this.root.getElementById('ok-ui-navigation-toggle-state');
+
+    // The navigation toggle label.
+    this.navigationToggleStateLabel = <HTMLLabelElement>this.root.getElementById('ok-ui-navigation-toggle-state-label');
 
     // Find the popup container that is used to open and close the container.
     this.popupContainer = <HTMLDivElement>this.getAuditElementByClassName('ok-ui-popup');
