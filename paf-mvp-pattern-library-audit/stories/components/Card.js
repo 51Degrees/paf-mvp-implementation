@@ -9,6 +9,8 @@ export const CardHeader = (props = {}) => `
   <header class="ok-ui-card__header">
     ${props.children || `
       <div class="ok-ui-card__header-context">
+        <a href="#ok-ui-card-body" class="ok-ui-skip-link">Skip to content</a>
+      
         ${Logo()}
 
         <ul class="ok-ui-card__header-logos">
@@ -31,9 +33,9 @@ export const CardHeader = (props = {}) => `
   </header>
 `;
 
-export const CardBody = (props = {}) => `<main class="ok-ui-card__body">
+export const CardBody = (props = {}) => `<div class="ok-ui-card__body" id="ok-ui-card-body" aria-live="polite">
   ${props.children || 'Card body'}
-</main>`;
+</div>`;
 
 export default (props = {}) => `
   <section tabindex="-1" role="dialog"${props.ariaTitleId ? ` aria-labelledby="${props.ariaTitleId}"` : ''} class="ok-ui-card${props.blocked ? ' ok-ui-card--blocked' : ''}">${props.children || `

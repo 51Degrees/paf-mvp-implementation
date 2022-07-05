@@ -28,7 +28,7 @@ export default (args) => {
   const classes = ['ok-ui-advert-status', `ok-ui-advert-status--${type}`];
 
   return `
-    <div class="${classes.join(' ')}">
+    <div class="${classes.join(' ')}" aria-live="polite">
       ${Status({ type, large: true })}
 
       ${type === 'loading' ? `

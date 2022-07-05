@@ -1,0 +1,17 @@
+.ok-ui-skip-link {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  z-index: 100;
+
+  padding: 8px;
+
+  color: #FFFFFF;
+  background-color: $brand-primary;
+
+  &:focus {
+    left: 0;
+
+    @include focusable;
+  }
+}

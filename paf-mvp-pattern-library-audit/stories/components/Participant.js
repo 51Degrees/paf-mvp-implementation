@@ -59,7 +59,7 @@ export default (args) => {
         `}
       </div>
       ${args.parties ? `
-        <div class="ok-ui-participant__footer">
+        <div class="ok-ui-participant__footer" aria-live="polite">
           ${loading ? `
             <span class="ok-ui-loading-wrapper">
               <span class="ok-ui-loading ok-ui-loading--small"></span>
