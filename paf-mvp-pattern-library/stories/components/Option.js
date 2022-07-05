@@ -9,10 +9,10 @@ export default (args) => {
     <input class="ok-ui-option__input" type="radio" name="${name}" value="${value}" id="ok-ui-${name}-${value}" ${checked ? 'checked' : ''} />
     <label class="ok-ui-option__label" for="ok-ui-${name}-${value}">
       <span class="ok-ui-option__input-facade"></span>
-      <div class="ok-ui-option__content">
-        <h2 class="ok-ui-heading-1">${title}</h2>
-        <p>${description}</p>
-      </div>
+      <span class="ok-ui-option__content">
+        <span class="ok-ui-heading-1">${title}</span>
+        <span>${description}</span>
+      </span>
     </label>
   </div>`;
 };
