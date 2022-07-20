@@ -1,6 +1,7 @@
 import Logo from './Logo';
 
 export const CardHeader = (props = {}) => `<header class="ok-ui-card__header">
+  <a href="#ok-ui-card-body" class="ok-ui-skip-link">Skip to content</a>
   ${props.children || 'Card header'}
 </header>`;
 
@@ -10,9 +11,9 @@ export const CardHeaderLogo = (props = { center: false }) => {
   return Logo({ classes: 'ok-ui-card__header-logo' + center });
 };
 
-export const CardBody = (props = {}) => `<main class="ok-ui-card__body">
+export const CardBody = (props = {}) => `<div class="ok-ui-card__body" id="ok-ui-card-body" aria-live="polite">
   ${props.children || 'Card body'}
-</main>`;
+</div>`;
 
 export const CardFooter = (props = {}) => `<footer class="ok-ui-card__footer">
   ${props.children || 'Card footer'}

@@ -1,6 +1,6 @@
-import pretty from 'pretty';
-import '../styles/ok-ui.scss';
-import '../javascript/ok-ui.js';
+import pretty from "pretty";
+import "../styles/ok-ui.scss";
+import "../javascript/ok-ui.js";
 import { addDecorator } from '@storybook/html';
 
 export const parameters = {
@@ -31,5 +31,5 @@ export const parameters = {
 
 // this is an important piece of code that ensures every component/group is wrapped in the requisite OneKey container
 addDecorator(story => `
-  <aside class="ok-ui">${story()}</aside>
+  <aside class="ok-ui" lang="en">${story()}</aside>
 `);
