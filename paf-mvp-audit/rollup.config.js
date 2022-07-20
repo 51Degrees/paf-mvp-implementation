@@ -131,6 +131,7 @@ async function getLocales() {
   getLocaleFiles().forEach(localeFile => {
     const language = localeFile.split('.')[0];
     const locale = buildLocale(yaml.load(fs.readFileSync(path.join(directory, localeFile), 'utf8')));
+    locale.language = language;
     const text = JSON.stringify(locale);
     locales.set(language, text);
   });

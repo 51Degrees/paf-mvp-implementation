@@ -101,6 +101,7 @@ export class View implements IView {
     if (!this.triggerElement) {
       this.triggerElement = document.createElement('div');
       this.triggerElement.classList.add('ok-ui');
+      this.triggerElement.lang = <string>this.locale.language;
       this.triggerElement.innerHTML = buttonTemplate(this.locale);
       this.root.appendChild(this.triggerElement);
     }
@@ -265,6 +266,7 @@ export class View implements IView {
     // Create the new container with the audit pop up template.
     this.innerContainer = document.createElement('div');
     this.innerContainer.classList.add('ok-ui');
+    this.innerContainer.lang = <string>this.locale.language;
     this.innerContainer.innerHTML = auditTemplate(this.locale);
 
     // Add the logos provided at construction to the controller to the header of the pop up.

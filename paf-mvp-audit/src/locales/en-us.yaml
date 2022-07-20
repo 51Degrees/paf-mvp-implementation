@@ -132,3 +132,6 @@ pauseAdAnswer2: Not appropriate to me.
 pauseAdAnswer2Explained: Advertisers don’t always know who you are and what you like. Sometimes they’ll choose to show you adverts that aren’t relevant or appropriate. 
 pauseAdAnswer3: Seen it too often.
 pauseAdAnswer3Explained: Advertisers try to show you the right amount of advertising. Helping them understand when they show an advert too often helps them improve.
+
+# ARIA text
+ariaSkip: Skip to content

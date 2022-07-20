@@ -5,6 +5,7 @@
       <input type="checkbox" id="ok-ui-navigation-toggle-state" class="ok-ui-navigation-toggle-state" />
       <header class="ok-ui-card__header">
         <div class="ok-ui-card__header-context">
+          <a href="#ok-ui-card-body" class="ok-ui-skip-link">${ _.ariaSkip }</a>
           <div class="ok-ui-card__header-logo">
             ${ _.OneKey }
           </div>
@@ -45,8 +46,8 @@
           </div>
         </nav>
       </header>
-      <main class="ok-ui-card__body">
-      </main>
+      <div class="ok-ui-card__body" id="ok-ui-card-body" aria-live="polite">
+      </div>
       <div class="ok-ui-popover ok-ui-card ok-ui-hidden">
       </div>
     </section>

@@ -215,6 +215,7 @@ export class View implements IView {
     // Create the new container with the templates.
     this.cardContainer = document.createElement('div');
     this.cardContainer.className = 'ok-ui';
+    this.cardContainer.lang = <string>this.locale.language;
 
     // Append the style, tooltips, and container with a shadow root for encapsulation.
     this.root = this.outerContainer.attachShadow({ mode: 'closed' });
